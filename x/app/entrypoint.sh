@@ -24,7 +24,7 @@ forever () {
   done
 }
 
-Xvfb :0 -ac -listen tcp -screen 0 1024x768x24 >logs/xvfb.out 2>logs/xvfb.err &
+Xvfb :0 -ac -listen tcp -screen 0 640x480x24 >logs/xvfb.out 2>logs/xvfb.err &
 pid_xvfb=$!
 
 while true; do

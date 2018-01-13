@@ -13,31 +13,21 @@ services:
       - x
     volumes:
       - './fluxbox/app:/app'
-  ffmpeg-images:
-    build: ffmpeg-images
-    volumes:
-      - './ffmpeg-images/app:/app'
-      - './volumes/ffmpeg-images/images:/images'
-    depends_on:
-      - fluxbox
   dosbox:
     build: dosbox
     volumes:
       - './dosbox/app:/app'
+      - './dosbox/root/dotdosbox:/root/.dosbox'
     depends_on:
       - x
-  tesseract:
-    build: tesseract
+  x2txt:
+    build: x2txt
+    ports:
+      - '8080:8080'
     volumes:
-      - './tesseract/app:/app'
-      - './volumes/ffmpeg-images/images:/images'
-      - './volumes/tesseract/ocr:/ocr'
+      - './x2txt/app:/app'
+      - './volumes/x2txt/images:/images'
+      - './volumes/x2txt/ocr:/ocr'
+      - './volumes/x2txt/logs:/logs'
     depends_on:
-      - ffmpeg-images
-  imagemagick:
-    build: imagemagick
-    volumes:
-      - './imagemagick/app:/app'
-      - './volumes/ffmpeg-images/images:/images'
-    depends_on:
-      - ffmpeg-images
+      - x
