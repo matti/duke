@@ -3,6 +3,7 @@ services:
   x:
     build: x
     volumes:
+      - './x/app:/app'
       - './volumes/x/logs:/app/logs'
     ports:
       - '5900:5900'
@@ -10,19 +11,25 @@ services:
     build: fluxbox
     depends_on:
       - x
+    volumes:
+      - './fluxbox/app:/app'
   ffmpeg-images:
     build: ffmpeg-images
     volumes:
+      - './ffmpeg-images/app:/app'
       - './volumes/ffmpeg-images/images:/images'
     depends_on:
       - fluxbox
   dosbox:
     build: dosbox
+    volumes:
+      - './dosbox/app:/app'
     depends_on:
       - x
   tesseract:
     build: tesseract
     volumes:
+      - './tesseract/app:/app'
       - './volumes/ffmpeg-images/images:/images'
       - './volumes/tesseract/ocr:/ocr'
     depends_on:
@@ -30,6 +37,7 @@ services:
   imagemagick:
     build: imagemagick
     volumes:
+      - './imagemagick/app:/app'
       - './volumes/ffmpeg-images/images:/images'
     depends_on:
       - ffmpeg-images
