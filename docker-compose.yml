@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+  x:
+    build: x
+    volumes:
+      - './volumes/x/logs:/app/logs'
+    ports:
+      - '5900:5900'
+  fluxbox:
+    build: fluxbox
+    depends_on:
+      - x
+  ffmpeg-images:
+    build: ffmpeg-images
+    volumes:
+      - './volumes/ffmpeg-images/images:/images'
+    depends_on:
+      - fluxbox
+  dosbox:
+    build: dosbox
+    depends_on:
+      - x
+  tesseract:
+    build: tesseract
+    volumes:
+      - './volumes/ffmpeg-images/images:/images'
+      - './volumes/tesseract/ocr:/ocr'
+    depends_on:
+      - ffmpeg-images
+  imagemagick:
+    build: imagemagick
+    volumes:
+      - './volumes/ffmpeg-images/images:/images'
+    depends_on:
+      - ffmpeg-images
